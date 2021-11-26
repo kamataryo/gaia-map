@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Gaia Explorer</title>
 	<style>
 		html, body, #map {
 			width: 100%;
@@ -17,6 +12,31 @@
 <body>
 	<div id="map" data-hash="on"></div>
 	<script src="https://cdn.geolonia.com/v1/embed?geolonia-api-key=YOUR-API-KEY"></script>
-	<script src="./main.js"></script>
+	<script>
+		new window.geolonia.Map('#map')
+			.once('load', (event) => {
+				const map = event.target
+				map.addSource('gaia', {
+					type: 'vector',
+					url: 'http://localhost:8080/data/gaia.json',
+				})
+
+				map.addLayer({
+					id: 'gaia-layer',
+					type: 'circle',
+					source: 'gaia',
+					'source-layer': 'gaia',
+					// TODO: pick the properties
+					layout: {
+						// 'text-layout': 'aaa'
+					},
+					paint: {
+						'circle-color': '#000000',
+						'circle-radius': 1
+					}
+				})
+
+			})
+	</script>
 </body>
 </html>

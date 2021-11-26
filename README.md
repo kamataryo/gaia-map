@@ -29,7 +29,15 @@ $ find ~/Downloads/GaiaSource_*.csv.gz | \
 ## serve
 
 ```shell
+$ nvm use
 # serve tiles
 $ npx tileserver-gl gaia.mbtiles --port 8080
 # serve map
 $ npx http-server docs -o
+```
+
+## TODO
+
+- いつの（何時の）星空なのか
+- 等級に合わせた表示
+- ライセンス表示
