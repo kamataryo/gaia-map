@@ -1,42 +1,51 @@
 <html>
 <head>
-	<style>
-		html, body, #map {
-			width: 100%;
-			height: 100%;
-			margin: 0;
-			padding: 0;
-		}
-	</style>
+  <style>
+    html, body, #map {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
-	<div id="map" data-hash="on"></div>
-	<script src="https://cdn.geolonia.com/v1/embed?geolonia-api-key=YOUR-API-KEY"></script>
-	<script>
-		new window.geolonia.Map('#map')
-			.once('load', (event) => {
-				const map = event.target
-				map.addSource('gaia', {
-					type: 'vector',
-					url: 'http://localhost:8080/data/gaia.json',
-				})
-
-				map.addLayer({
-					id: 'gaia-layer',
-					type: 'circle',
-					source: 'gaia',
-					'source-layer': 'gaia',
-					// TODO: pick the properties
-					layout: {
-						// 'text-layout': 'aaa'
-					},
-					paint: {
-						'circle-color': '#000000',
-						'circle-radius': 1
-					}
-				})
-
-			})
-	</script>
+  <div id="map" data-hash="on"></div>
+  <script src="https://cdn.geolonia.com/v1/embed?geolonia-api-key=YOUR-API-KEY"></script>
+  <script>
+  new window.geolonia.Map({
+      container: document.getElementById('map'),
+      style: {
+        version: 8,
+        sources: {
+          gaia: {
+          type: 'vector',
+          url: 'http://localhost:8080/data/gaia.json',
+            minzoom: 0,
+            maxzoom: 20,
+          },
+        },
+        layers: [
+          {
+            id: "background",
+            type: "background",
+            paint: {
+              'background-color': "black"
+            }
+          },
+          {
+            id: 'stars',
+            type: 'circle',
+            source: 'gaia',
+            'source-layer': 'gaia',
+            paint: {
+              'circle-color': '#ffffff',
+              'circle-radius': 1
+            }
+          }
+        ]
+      }
+    })
+   </script>
 </body>
 </html>
