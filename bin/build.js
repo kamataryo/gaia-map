@@ -1,4 +1,4 @@
-const csv = require('csv-parser');
+const csv = require('csv-parser')
 
 // 定数と計算用ユーティリティ
 const ECL_INC = 23.4
@@ -22,8 +22,11 @@ process.stdin
     const { ecl_lon, ecl_lat, phot_g_mean_mag } = chunk;
     const ecl_coord = [parseFloat(ecl_lon), parseFloat(ecl_lat)]
     const m = parseFloat(phot_g_mean_mag)
+    if(!ecl_coord[0] || !ecl_coord[1] || !m) {
+      return
+    }
     try {
-      const eq_coord = ecl2eq(ecl_coord);
+      const eq_coord = ecl2eq(ecl_coord)
       const feature = {
           type: 'Feature',
           properties: { m },
